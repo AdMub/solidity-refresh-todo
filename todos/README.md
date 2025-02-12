@@ -1,66 +1,58 @@
-## Foundry
+The following instruction will work on both local and GitHub Codespaces users. For Linux and MacOS users, run the following commands on your terminal.
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+curl -fsSL https://foundry.paradigm.xyz | bash
+source ~/.bashrc
+foundryup
 
-Foundry consists of:
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+check that the installation worked, open a new terminal and run the following command on your terminal.
+forge --version
 
-## Documentation
 
-https://book.getfoundry.sh/
+Run the following command.
+forge init --force todos
 
-## Usage
 
-### Build
+Delete the following files based on the following paths:
+src/Counter.sol 
+script/Counter.s.sol
+test/Counter.t.sol
 
-```shell
-$ forge build
-```
 
-### Test
+Create a new file called Todos.sol in the src directory
 
-```shell
-$ forge test
-```
 
-### Format
+Run the following command to format your code.
+forge fmt
 
-```shell
-$ forge fmt
-```
 
-### Gas Snapshots
+Run the following command to compile your code.
+forge compile
 
-```shell
-$ forge snapshot
-```
 
-### Anvil
+Head to the todos directory. Head to the test directory and create a new file called Todos.t.sol
 
-```shell
-$ anvil
-```
 
-### Deploy
+Run the following command inside the todos directory.
+forge test
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
 
-### Cast
+To deploy your smart contract to the testnet, let’s start by creating your Infura API key.
+Create a new account at https://www.infura.io. Then head to the Infura Dashboard.
+1. Click the "Create new API key".
+2. Name the API key as 'todos'.
+3. Copy your API key.
 
-```shell
-$ cast <subcommand>
-```
 
-### Help
+ Head to the root directory of your project. Head to the todos directory. Then create a .env file.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+
+ Create an account at https://etherscan.io. Once created, head to https://etherscan.io/myaccount with your logged in account. Head to the API Keys section.
+
+
+ Navigate to the todos directory and run the following command.
+source .env
+
+
+Deploy your Todos smart contract to the Sepolia network and verify it on Sepolia by running the following command:
+forge create --rpc-url "${SEPOLIA_RPC_URL}" --broadcast --private-key "${PRIVATE_KEY}" --verifier-url "https://api-sepolia.etherscan.io/api" -e "${ETHERSCAN_API_KEY}" --verify src/Todos.sol:Todos
